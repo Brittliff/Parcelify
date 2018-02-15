@@ -5,7 +5,7 @@ class CreateShippingCarrierJob < ApplicationJob
     shop.with_shopify_session do
       ShopifyAPI::CarrierService.find(:all).each do |carrier_service|
         begin
-          carrier_service.destroy
+          carrier_service.destroy if carrier_service.name == "Parcelify"
         rescue
           # Failed to delete carrier. Should we care?
         end
